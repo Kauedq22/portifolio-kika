@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Kika | Portfolio</title>
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: Serif for high-end editorial feel -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400&amp;display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'pia-navy': '#0A0B50',
+            'pia-peach': '#F9A28A',
+          },
+          fontFamily: {
+            'serif': ['"Playfair Display"', 'serif'],
+            'sans': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style data-purpose="typography-adjustments">
+    /* Specifically for the large overlapping text effect */
+    .hero-title {
+      font-size: 14rem;
+      line-height: 0.8;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      font-family: 'Brittany', serif;
+    }
+
+    @media (max-width: 1280px) {
+      .hero-title {
+        font-size: 10rem;
+      }
+    }
+
+    .text-outline {
+      -webkit-text-stroke: 1px #F9A28A;
+      color: transparent;
+    }
+
+    .serif-italic {
+      font-style: italic;
+    }
+
+    /* Project Modal animations */
+    #project-modal {
+      transition: opacity 0.35s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #project-modal.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #project-modal-box {
+      transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      transform: scale(0.90) translateY(30px);
+    }
+    #project-modal.open #project-modal-box {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Modal animations */
+    #info-modal {
+      transition: opacity 0.35s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #info-modal.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #info-modal-box {
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      transform: scale(0.92) translateY(20px);
+    }
+    #info-modal.open #info-modal-box {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    /* ── Scroll reveal animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(48px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.from-left {
+      transform: translateX(-60px);
+    }
+    .reveal.from-right {
+      transform: translateX(60px);
+    }
+    .reveal.scale-in {
+      transform: scale(0.88);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translate(0) scale(1);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+    .reveal-delay-4 { transition-delay: 0.5s; }
+  </style>
+</head>
+
+<body class="bg-pia-navy text-pia-peach font-sans selection:bg-pia-peach selection:text-pia-navy">
+  <!-- BEGIN: Navigation -->
+   
+  <nav class="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center bg-pia-navy/90 backdrop-blur-sm"
+    data-purpose="main-navigation">
+    <div class="font-bold tracking-widest text-sm uppercase" >
+      Francisca Costa
+    </div>
+    <ul class="flex gap-8 text-sm">
+      <li><a class="hover:opacity-70 transition-opacity cursor-pointer" onclick="openInfoModal(); return false;" href="#">Plataformas</a></li>
+      <li><a class="hover:opacity-70 transition-opacity" href="#trabalhos">Selecione os trabalhos</a></li>
+    </ul>
+  </nav>
+  <!-- END: Navigation -->
+
+  <!-- BEGIN: Info Modal -->
+  <div id="info-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm" onclick="handleModalBackdrop(event)">
+    <div id="info-modal-box" class="relative bg-[#F5EDE4] text-pia-navy rounded-3xl max-w-2xl w-full mx-4 p-10 overflow-y-auto max-h-[90vh]">
+      <!-- Close Button -->
+      <button onclick="closeInfoModal()" class="absolute top-5 right-6 text-2xl font-light text-pia-navy hover:text-pia-peach transition-colors leading-none">&times;</button>
+
+      <!-- Profile Photo -->
+      <div class="flex justify-center mb-6">
+        <div class="w-28 h-28 rounded-full overflow-hidden border-4 border-pia-peach">
+          <img src="./modelo4.jpeg" alt="Francisca Costa" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h2 class="text-center font-serif font-bold uppercase tracking-tight mb-10" style="font-size: clamp(2.5rem, 6vw, 4rem); color: #C4956A;">PLATAFORMAS</h2>
+
+      <!-- Tools Grid -->
+      <div class="grid grid-cols-6 gap-6 text-center">
+        <!-- Row 1 -->
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-xl" style="background: linear-gradient(135deg, #F24E1E, #FF7262, #A259FF, #1ABCFE, #0ACF83)">
+            <svg viewBox="0 0 38 57" fill="white" class="w-7 h-7"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>
+          </div>
+          <span class="text-xs font-medium">Figma</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #00C4CC;">
+            Cv
+          </div>
+          <span class="text-xs font-medium">Canva</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg bg-black">
+            Cc
+          </div>
+          <span class="text-xs font-medium">CapCut</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #9999FF;">
+            Pr
+          </div>
+          <span class="text-xs font-medium">Premiere</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #FF7C00;">
+            Fr
+          </div>
+          <span class="text-xs font-medium text-center leading-tight">Adobe Fresco</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #217346;">
+            X
+          </div>
+          <span class="text-xs font-medium">Excel</span>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #2B5796;">
+            W
+          </div>
+          <span class="text-xs font-medium">Word</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #D24726;">
+            P
+          </div>
+          <span class="text-xs font-medium">PowerPoint</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #18A497;">
+            Pp
+          </div>
+          <span class="text-xs font-medium">Photopea</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #007ACC;">
+            VS
+          </div>
+          <span class="text-xs font-medium">VS Code</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style="background: #F5A623;">
+            Au
+          </div>
+          <span class="text-xs font-medium">Audacity</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg bg-gray-800">
+            Ik
+          </div>
+          <span class="text-xs font-medium">Inkscape</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END: Info Modal -->
+
+  <!-- BEGIN: Project Modal -->
+  <div id="project-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm" onclick="handleProjectBackdrop(event)">
+    <div id="project-modal-box" class="relative bg-[#F5EDE4] text-pia-navy rounded-3xl max-w-3xl w-full mx-4 overflow-hidden max-h-[90vh] flex flex-col">
+      <!-- Close Button -->
+      <button onclick="closeProjectModal()" class="absolute top-5 right-6 z-10 text-3xl font-light text-pia-navy hover:text-pia-peach transition-colors leading-none">&times;</button>
+
+      <!-- Project Image -->
+      <div class="w-full overflow-hidden" style="max-height: 280px;">
+        <img id="pm-image" src="" alt="" class="w-full h-full object-cover" />
+      </div>
+
+      <!-- Content -->
+      <div class="p-8 overflow-y-auto">
+        <!-- Category tag -->
+        <span id="pm-tag" class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-pia-peach/20 text-pia-peach mb-4"></span>
+
+        <!-- Title -->
+        <h2 id="pm-title" class="font-serif font-bold text-3xl lg:text-4xl leading-tight mb-4"></h2>
+
+        <!-- Description -->
+        <p id="pm-desc" class="text-sm lg:text-base leading-relaxed text-pia-navy/80 mb-6"></p>
+
+        <!-- Details row -->
+        <div class="flex flex-wrap gap-6 text-sm border-t border-pia-navy/10 pt-6">
+          <div>
+            <span class="block text-xs uppercase tracking-widest text-pia-navy/40 mb-1">Ano</span>
+            <span id="pm-year" class="font-semibold"></span>
+          </div>
+          <div>
+            <span class="block text-xs uppercase tracking-widest text-pia-navy/40 mb-1">Papel</span>
+            <span id="pm-role" class="font-semibold"></span>
+          </div>
+          <div>
+            <span class="block text-xs uppercase tracking-widest text-pia-navy/40 mb-1">Ferramentas</span>
+            <span id="pm-tools" class="font-semibold"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END: Project Modal -->
+
+  <script>
+    /* ── Project data ── */
+    const projects = {
+      podcast: {
+        image: './WhatsApp Image 2026-03-25 at 11.44.25.jpeg',
+        tag: 'Podcast · Redes Sociais',
+        title: 'Hot N Cold Podcast',
+        desc: 'Em 2024, em conjunto com mais 4 colegas da faculdade,  decidimos criar um podcast. Este projeto permitiu que eu ganha-se experiência na gestão de redes sociais, principalmente Instagram e Tiktok e na gravação e edição de vídeos.',
+        year: '2024',
+        role: 'Produção & Gestão de conteúdo',
+        tools: 'Canva, CapCut, Audacity'
+      },
+      jornal: {
+        image: './jornal.png',
+        tag: 'Jornalismo · Texto',
+        title: 'Dragões dão a volta ao marcador',
+        desc: 'Durante o estágio de verão do JPN tive oportunidade de ter uma experiência no jornalismo desportivo incluindo assistir a uma conferência de imprensa da apresentação do novo treinador do Boavista.',
+        year: '2024',
+        role: 'Jornalista / Redatora',
+        tools: 'Word, Google Docs'
+      },
+      insta: {
+        image: './insta.png',
+        tag: 'Redes Sociais · Comunicação',
+        title: 'Convidada Clara Aires',
+        desc: 'O evento foi realizado no âmbito da cadeira de relações públicas da licenciatura. Para a criação do evento criamos uma identidade visual, press releases, press kits e gestão de redes sociais.',
+        year: '2024',
+        role: 'Gestão de Redes Sociais',
+        tools: 'Canva, Instagram'
+      },
+      porto: {
+        image: './pod.jpeg',
+        tag: 'Rádio · Podcast',
+        title: 'PortOuvido',
+        desc: 'Durante o primeiro semestre do primeiro ano da licenciatura fiz parte do Podcast Port’Ouvido, onde tive a oportunidade de aprender  tanto sobre a criação de conteúdos como sobre a edição de áudio com o programa Audacity.',
+        year: '2024',
+        role: 'Apresentadora & Produtora',
+        tools: 'Audacity, Adobe Premiere'
+      }
+    };
+
+    function openProjectModal(key) {
+      const p = projects[key];
+      document.getElementById('pm-image').src = p.image;
+      document.getElementById('pm-image').alt = p.title;
+      document.getElementById('pm-tag').textContent = p.tag;
+      document.getElementById('pm-title').textContent = p.title;
+      document.getElementById('pm-desc').textContent = p.desc;
+      document.getElementById('pm-year').textContent = p.year;
+      document.getElementById('pm-role').textContent = p.role;
+      document.getElementById('pm-tools').textContent = p.tools;
+      document.getElementById('project-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeProjectModal() {
+      document.getElementById('project-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleProjectBackdrop(e) {
+      if (e.target === document.getElementById('project-modal')) closeProjectModal();
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { closeInfoModal(); closeProjectModal(); }
+    });
+
+    function openInfoModal() {
+      document.getElementById('info-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeInfoModal() {
+      document.getElementById('info-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleModalBackdrop(e) {
+      if (e.target === document.getElementById('info-modal')) closeInfoModal();
+    }
+
+    /* ── Scroll reveal observer ── */
+    document.addEventListener('DOMContentLoaded', function() {
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        observer.observe(el);
+      });
+    });
+  </script>
+  <!-- Contact Email -->
+  <div class="pt-10 pl-80">
+    <a class="font-serif italic text-sm hover:underline underline-offset-4" href="mailto:francisacosta@gmail.com">
+      francisacosta@gmail.com
+    </a>
+  </div>
+  <!-- BEGIN: MainContent -->
+  <main class="relative min-h-screen flex flex-col justify-center px-8 lg:px-20 py-24 overflow-hidden"
+    data-purpose="hero-section">
+    <!-- Hero Typography & Image Layout Container -->
+    <div class="relative w-full max-w-7xl mx-auto -mt-20 lg:-mt-[30rem]">
+      <!-- First PORTFÓLIO - appears above/in front of image -->
+      <div class="relative z-30 select-none reveal from-left">
+        <h1 class="hero-title font-serif leading-none">
+          PORTFÓLIO
+        </h1>
+      </div>
+      <!-- Second PORTFÓLIO - appears behind/below image -->
+      <div class="relative z-10 select-none reveal from-right reveal-delay-1">
+        <h1 class="hero-title font-serif leading-none">
+          PORTFÓLIO
+        </h1>
+      </div>
+      <!-- Overlapping Portrait Image -->
+      <div class="absolute right-0 lg:right-10 top-[10%] -translate-y-1/2 w-3/5 lg:w-[46%] z-20 reveal scale-in reveal-delay-2"
+        data-purpose="featured-image-container">
+        <div class="relative aspect-[4/5] ">
+          <img alt="Pia Quinn with Camera" class="w-full h-full object-cover" src="./modelo4.jpeg"
+            style="object-position: center; border-radius: 50px;" />
+        </div>
+        <!-- Caption for the Image -->
+        <div class="mt-4" data-purpose="image-caption" style="text-align: center;">
+          <h2 class="text-3xl font-serif uppercase tracking-tight">Francisca Costa</h2>
+          <p class="font-serif italic text-lg">Comunicação</p>
+        </div>
+      </div>
+    </div>
+    <!-- Description Text (Middle Left, between PORTFÓLIO lines) -->
+    <div class="mt-20 lg:mt-0 lg:absolute lg:top-[62%] lg:left-80 max-w-sm z-30 reveal reveal-delay-3" data-purpose="biography-snippet">
+      <div class="space-y-6 text-sm lg:text-base leading-relaxed ">
+        <p>
+      Sou estudante da licenciatura de Ciências da Comunicação da Faculdade de Letras da Universidade do Porto,
+      e estou neste momento no último ano, na área de comunicação estratégica. 
+        </p>
+        <p>
+        Tenho grande interesse nesta área, principalmente na gestão de redes sociais e criação de conteúdos,
+        criação de identidades de marca, relações públicas e marketing. 
+        </p>
+      </div>
+    </div>
+  </main>
+  <!-- END: MainContent -->
+
+  <!-- BEGIN: Selected Works Section -->
+  <section id="trabalhos" class="relative bg-[#F5EDE4] text-pia-navy py-24 px-8 lg:px-20 overflow-hidden" data-purpose="works-section">
+    <!-- Section Title -->
+    <h2 class="font-serif italic text-2xl mb-16 underline underline-offset-4 tracking-wide reveal">Selecione os trabalhos</h2>
+
+    <!-- Works Grid + Big Text Overlay -->
+    <div class="relative">
+      <!-- Photo Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 relative z-20">
+        <div class="overflow-hidden rounded-xl shadow-lg group cursor-pointer reveal reveal-delay-1" onclick="openProjectModal('podcast')">
+          <img src="./WhatsApp Image 2026-03-25 at 11.44.25.jpeg" alt="Hot N Cold Podcast" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
+        </div>
+        <div class="overflow-hidden rounded-xl shadow-lg group cursor-pointer reveal reveal-delay-2" onclick="openProjectModal('jornal')">
+          <img src="./jornal.png" alt="Jornal" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio:1/1;" />
+        </div>
+        <div class="overflow-hidden rounded-xl shadow-lg group cursor-pointer reveal reveal-delay-3" onclick="openProjectModal('insta')">
+          <img src="./insta.png" alt="Clara Aires" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
+        </div>
+        <div class="overflow-hidden rounded-xl shadow-lg group cursor-pointer reveal reveal-delay-4" onclick="openProjectModal('porto')">
+          <img src="./pod.jpeg" alt="PortOuvido" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
+        </div>
+      </div>
+
+      <!-- Big Overlay Text -->
+      <div class="relative z-10 -mt-0 select-none pointer-events-none reveal">
+        <p class="font-serif text-pia-peach uppercase font-bold leading-none" style="font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -0.02em;">
+          Projetos<br/>
+          academicos<br/>
+          de comunicação <br/>
+          e design
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Feature: Photo + Text -->
+    <div class="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="aspect-[4/5] overflow-hidden reveal from-left">
+        <img src="./whatsapp_image_2026_02_26_at_17.40.25.jpeg.png" alt="Feature" class="w-full h-full object-cover grayscale" style="border-radius: 20px;" />
+      </div>
+      <div class="space-y-6 text-base leading-relaxed text-pia-navy lg:pl-8 reveal from-right reveal-delay-2">
+        <h1 style="font-size: 90px; font-weight: 900; line-height: 1; text-transform: uppercase; color: #C4956A;">
+          Francisca<br/>Costa
+        </h1>
+        <div class="flex items-center gap-4 ml-06">
+          <span class="font-serif italic flex-shrink-0" style="font-size: 2.4rem; color: #C4956A; line-height: 1;">Contactos:</span>
+          <div class="text-sm leading-relaxed" style="color: #C4956A;">
+            Telemóvel: 937634985<br/>
+            Email: franciscacosta06@hotmail.com
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: Selected Works Section -->
+
+  <!-- BEGIN: Footer Elements -->
+  <!-- Floating bottom interaction hint if applicable -->
+  <div class="fixed bottom-0 right-0 p-8 z-50 pointer-events-none" data-purpose="footer-decor">
+    <div
+      class="hidden lg:block text-[10px] uppercase tracking-widest opacity-40 rotate-90 origin-right translate-y-[-2rem]">
+      Scroll to explore
+    </div>
+  </div>
+  <!-- END: Footer Elements -->
+</body>
+
+</html>
