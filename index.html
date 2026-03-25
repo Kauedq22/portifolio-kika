@@ -33,17 +33,24 @@
   <style data-purpose="typography-adjustments">
     /* Specifically for the large overlapping text effect */
     .hero-title {
-      font-size: 14rem;
-      line-height: 0.8;
+      font-size: 3.5rem;
+      line-height: 0.85;
       letter-spacing: -0.05em;
       text-transform: uppercase;
       font-family: 'Brittany', serif;
     }
 
-    @media (max-width: 1280px) {
-      .hero-title {
-        font-size: 10rem;
-      }
+    @media (min-width: 480px) {
+      .hero-title { font-size: 5rem; }
+    }
+    @media (min-width: 768px) {
+      .hero-title { font-size: 7.5rem; }
+    }
+    @media (min-width: 1024px) {
+      .hero-title { font-size: 10rem; }
+    }
+    @media (min-width: 1536px) {
+      .hero-title { font-size: 14rem; }
     }
 
     .text-outline {
@@ -130,7 +137,7 @@
     <div class="font-bold tracking-widest text-sm uppercase" >
       Francisca Costa
     </div>
-    <ul class="flex gap-8 text-sm">
+    <ul class="flex gap-4 sm:gap-8 text-xs sm:text-sm">
       <li><a class="hover:opacity-70 transition-opacity cursor-pointer" onclick="openInfoModal(); return false;" href="#">Plataformas</a></li>
       <li><a class="hover:opacity-70 transition-opacity" href="#trabalhos">Selecione os trabalhos</a></li>
     </ul>
@@ -139,7 +146,7 @@
 
   <!-- BEGIN: Info Modal -->
   <div id="info-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm" onclick="handleModalBackdrop(event)">
-    <div id="info-modal-box" class="relative bg-[#F5EDE4] text-pia-navy rounded-3xl max-w-2xl w-full mx-4 p-10 overflow-y-auto max-h-[90vh]">
+    <div id="info-modal-box" class="relative bg-[#F5EDE4] text-pia-navy rounded-3xl max-w-2xl w-full mx-4 p-6 sm:p-10 overflow-y-auto max-h-[90vh]">
       <!-- Close Button -->
       <button onclick="closeInfoModal()" class="absolute top-5 right-6 text-2xl font-light text-pia-navy hover:text-pia-peach transition-colors leading-none">&times;</button>
 
@@ -154,7 +161,7 @@
       <h2 class="text-center font-serif font-bold uppercase tracking-tight mb-10" style="font-size: clamp(2.5rem, 6vw, 4rem); color: #C4956A;">PLATAFORMAS</h2>
 
       <!-- Tools Grid -->
-      <div class="grid grid-cols-6 gap-6 text-center">
+      <div class="grid grid-cols-4 sm:grid-cols-6 gap-3 sm:gap-6 text-center">
         <!-- Row 1 -->
         <div class="flex flex-col items-center gap-2">
           <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-xl" style="background: linear-gradient(135deg, #F24E1E, #FF7262, #A259FF, #1ABCFE, #0ACF83)">
@@ -370,16 +377,29 @@
     });
   </script>
   <!-- Contact Email -->
-  <div class="pt-10 pl-80">
+  <div class="pt-8 pl-6 sm:pl-48 lg:pl-80">
     <a class="font-serif italic text-sm hover:underline underline-offset-4" href="mailto:francisacosta@gmail.com">
       francisacosta@gmail.com
     </a>
   </div>
   <!-- BEGIN: MainContent -->
-  <main class="relative min-h-screen flex flex-col justify-center px-8 lg:px-20 py-24 overflow-hidden"
+  <main class="relative min-h-screen flex flex-col justify-center px-6 sm:px-8 lg:px-20 py-20 sm:py-24 overflow-hidden"
     data-purpose="hero-section">
+
+    <!-- Mobile Portrait (visible only on small screens) -->
+    <div class="block lg:hidden mx-auto mb-6 w-3/4 max-w-xs reveal scale-in">
+      <div class="relative aspect-[4/5]">
+        <img alt="Francisca Costa" class="w-full h-full object-cover" src="./modelo4.jpeg"
+          style="object-position: center; border-radius: 30px;" />
+      </div>
+      <div class="mt-3 text-center">
+        <h2 class="text-xl font-serif uppercase tracking-tight">Francisca Costa</h2>
+        <p class="font-serif italic">Comunicação</p>
+      </div>
+    </div>
+
     <!-- Hero Typography & Image Layout Container -->
-    <div class="relative w-full max-w-7xl mx-auto -mt-20 lg:-mt-[30rem]">
+    <div class="relative w-full max-w-7xl mx-auto lg:-mt-[30rem]">
       <!-- First PORTFÓLIO - appears above/in front of image -->
       <div class="relative z-30 select-none reveal from-left">
         <h1 class="hero-title font-serif leading-none">
@@ -392,23 +412,24 @@
           PORTFÓLIO
         </h1>
       </div>
-      <!-- Overlapping Portrait Image -->
-      <div class="absolute right-0 lg:right-10 top-[10%] -translate-y-1/2 w-3/5 lg:w-[46%] z-20 reveal scale-in reveal-delay-2"
+      <!-- Overlapping Portrait Image (desktop only) -->
+      <div class="hidden lg:block absolute right-10 top-[10%] -translate-y-1/2 w-[46%] z-20 reveal scale-in reveal-delay-2"
         data-purpose="featured-image-container">
-        <div class="relative aspect-[4/5] ">
-          <img alt="Pia Quinn with Camera" class="w-full h-full object-cover" src="./modelo4.jpeg"
+        <div class="relative aspect-[4/5]">
+          <img alt="Francisca Costa" class="w-full h-full object-cover" src="./modelo4.jpeg"
             style="object-position: center; border-radius: 50px;" />
         </div>
         <!-- Caption for the Image -->
-        <div class="mt-4" data-purpose="image-caption" style="text-align: center;">
+        <div class="mt-4 text-center" data-purpose="image-caption">
           <h2 class="text-3xl font-serif uppercase tracking-tight">Francisca Costa</h2>
           <p class="font-serif italic text-lg">Comunicação</p>
         </div>
       </div>
     </div>
-    <!-- Description Text (Middle Left, between PORTFÓLIO lines) -->
-    <div class="mt-20 lg:mt-0 lg:absolute lg:top-[62%] lg:left-80 max-w-sm z-30 reveal reveal-delay-3" data-purpose="biography-snippet">
-      <div class="space-y-6 text-sm lg:text-base leading-relaxed ">
+
+    <!-- Description Text -->
+    <div class="mt-8 lg:mt-0 lg:absolute lg:top-[62%] lg:left-80 max-w-sm z-30 reveal reveal-delay-3" data-purpose="biography-snippet">
+      <div class="space-y-4 text-sm lg:text-base leading-relaxed">
         <p>
       Sou estudante da licenciatura de Ciências da Comunicação da Faculdade de Letras da Universidade do Porto,
       e estou neste momento no último ano, na área de comunicação estratégica. 
@@ -423,7 +444,7 @@
   <!-- END: MainContent -->
 
   <!-- BEGIN: Selected Works Section -->
-  <section id="trabalhos" class="relative bg-[#F5EDE4] text-pia-navy py-24 px-8 lg:px-20 overflow-hidden" data-purpose="works-section">
+  <section id="trabalhos" class="relative bg-[#F5EDE4] text-pia-navy py-16 lg:py-24 px-6 lg:px-20 overflow-hidden" data-purpose="works-section">
     <!-- Section Title -->
     <h2 class="font-serif italic text-2xl mb-16 underline underline-offset-4 tracking-wide reveal">Selecione os trabalhos</h2>
 
@@ -432,16 +453,16 @@
       <!-- Photo Grid -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 relative z-20">
         <div class="overflow-hidden rounded-xl shadow-lg group cursor-pointer reveal reveal-delay-1" onclick="openProjectModal('podcast')">
-          <img src="./WhatsApp Image 2026-03-25 at 11.44.25.jpeg" alt="Hot N Cold Podcast" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
+          <img src="./icon hot.jpeg" alt="Hot N Cold Podcast" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
         </div>
         <div class="overflow-hidden rounded-xl shadow-lg group cursor-pointer reveal reveal-delay-2" onclick="openProjectModal('jornal')">
-          <img src="./jornal.png" alt="Jornal" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio:1/1;" />
+          <img src="./icon jorr.png" alt="Jornal" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio:1/1;" />
         </div>
         <div class="overflow-hidden rounded-xl shadow-lg group cursor-pointer reveal reveal-delay-3" onclick="openProjectModal('insta')">
-          <img src="./insta.png" alt="Clara Aires" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
+          <img src="./icon instaa.png" alt="Clara Aires" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
         </div>
         <div class="overflow-hidden rounded-xl shadow-lg group cursor-pointer reveal reveal-delay-4" onclick="openProjectModal('porto')">
-          <img src="./pod.jpeg" alt="PortOuvido" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
+          <img src="./icon podd.png" alt="PortOuvido" class="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" style="aspect-ratio: 1/1;" />
         </div>
       </div>
 
@@ -457,20 +478,57 @@
     </div>
 
     <!-- Bottom Feature: Photo + Text -->
-    <div class="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="mt-16 lg:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
       <div class="aspect-[4/5] overflow-hidden reveal from-left">
         <img src="./whatsapp_image_2026_02_26_at_17.40.25.jpeg.png" alt="Feature" class="w-full h-full object-cover grayscale" style="border-radius: 20px;" />
       </div>
       <div class="space-y-6 text-base leading-relaxed text-pia-navy lg:pl-8 reveal from-right reveal-delay-2">
-        <h1 style="font-size: 90px; font-weight: 900; line-height: 1; text-transform: uppercase; color: #C4956A;">
+        <h1 style="font-size: clamp(2.5rem, 14vw, 90px); font-weight: 900; line-height: 1; text-transform: uppercase; color: #C4956A;">
           Francisca<br/>Costa
         </h1>
-        <div class="flex items-center gap-4 ml-06">
-          <span class="font-serif italic flex-shrink-0" style="font-size: 2.4rem; color: #C4956A; line-height: 1;">Contactos:</span>
+        <div class="flex flex-wrap items-start gap-4">
+          <span class="font-serif italic flex-shrink-0" style="font-size: clamp(1.4rem, 4vw, 2.4rem); color: #C4956A; line-height: 1;">Contactos:</span>
           <div class="text-sm leading-relaxed" style="color: #C4956A;">
             Telemóvel: 937634985<br/>
             Email: franciscacosta06@hotmail.com
           </div>
+        </div>
+
+        <!-- Social Buttons -->
+        <div class="flex flex-wrap gap-3 pt-2">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/kika.costa_?igsh=dGF2eDcwNHNvb2Yy" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-semibold text-sm transition-all duration-300 hover:scale-105"
+            style="border-color: #C4956A; color: #C4956A; background: transparent;"
+            onmouseover="this.style.background='#C4956A'; this.style.color='#F5EDE4';"
+            onmouseout="this.style.background='transparent'; this.style.color='#C4956A';">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+            Instagram
+          </a>
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@kikaa_costa_?_r=1&_t=ZS-94zLhXvjVHc" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-semibold text-sm transition-all duration-300 hover:scale-105"
+            style="border-color: #C4956A; color: #C4956A; background: transparent;"
+            onmouseover="this.style.background='#C4956A'; this.style.color='#F5EDE4';"
+            onmouseout="this.style.background='transparent'; this.style.color='#C4956A';">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.16 8.16 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/>
+            </svg>
+            TikTok
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/+351937634985" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-semibold text-sm transition-all duration-300 hover:scale-105"
+            style="border-color: #C4956A; color: #C4956A; background: transparent;"
+            onmouseover="this.style.background='#C4956A'; this.style.color='#F5EDE4';"
+            onmouseout="this.style.background='transparent'; this.style.color='#C4956A';">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/>
+            </svg>
+            WhatsApp
+          </a>
         </div>
       </div>
     </div>
